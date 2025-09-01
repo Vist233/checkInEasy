@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
             renderStats(records);
             renderTimeline(records);
         } catch (err) {
-            showError('解密失败：' + (err.message || '未知错误'));
+            showError('解析失败：请重新检查密文是否复制粘贴出错');
             els.plaintext.textContent = '';
         }
     }
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
             padding: CryptoJS.pad.Pkcs7
         });
         const result = decrypted.toString(CryptoJS.enc.Utf8);
-        if (!result) throw new Error('可能的密文或密钥/IV不匹配');
+        if (!result) throw new Error('解析失败');
         return result;
     }
 
@@ -116,8 +116,8 @@ document.addEventListener('DOMContentLoaded', () => {
         els.statTotal.textContent = records.length;
         const first = records[0];
         const last = records[records.length - 1];
-        els.statStart.textContent = first.date + ' ' + first.time;
-        els.statEnd.textContent = last.date + ' ' + last.time;
+        els.statStart.innerHTML = (first.date || '') + '<br>' + (first.time || '');
+        els.statEnd.innerHTML = (last.date || '') + '<br>' + (last.time || '');
         const duration = diffTime(first, last);
         els.statDuration.textContent = duration || '-';
     }
@@ -153,8 +153,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span>${escapeHTML(r.place)}</span>
                     </div>
                     <div class="meta">
-                        <span class="date">📅 ${r.date || '-'}</span>
                         <span class="time">⏱ ${r.time || '-'}</span>
+                        <span class="date">📅 ${r.date || '-'}</span>
                     </div>
                 </div>`;
             frag.appendChild(li);
