@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coder Exacter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-shell">
+        <header class="app-header">
+            <h1>打卡记录解析器</h1>
+            <div class="header-actions">
+                <button id="toggleTheme" aria-label="切换主题">🌙</button>
+            </div>
+        </header>
+
+        <main class="layout">
+            <section class="panel input-panel">
+                <h2>密文输入</h2>
+                <textarea id="ciphertext" placeholder="粘贴密文，自动解密..."></textarea>
+                <div id="errorBox" class="error-box" hidden></div>
+            </section>
+
+            <section class="panel result-panel">
+                <h2>概览</h2>
+                <div class="stats" id="stats">
+                    <div class="stat"><span class="label">总打卡</span><span class="value" id="statTotal">-</span></div>
+                    <div class="stat"><span class="label">起始时间</span><span class="value" id="statStart">-</span></div>
+                    <div class="stat"><span class="label">结束时间</span><span class="value" id="statEnd">-</span></div>
+                    <div class="stat"><span class="label">总耗时</span><span class="value" id="statDuration">-</span></div>
+                </div>
+                <h2>时间轴</h2>
+                <ol id="timeline" class="timeline"></ol>
+                <details class="raw-block">
+                    <summary>查看原始解密文本</summary>
+                    <pre id="plaintext" class="raw-text"></pre>
+                </details>
+            </section>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
